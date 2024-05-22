@@ -5,13 +5,12 @@ public class Product {
     private String code;
     private String name;
     private double price;
-    private double discountPrice;
+    private double discountPrice = 0;
 
-    public Product(String code, String name, double price, double discountPrice) {
+    public Product(String code, String name, double price) {
         this.code = code;
         this.name = name;
         this.price = price;
-        this.discountPrice = discountPrice;
     }
 
 /*
@@ -36,6 +35,8 @@ public class Product {
      \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
 */
 
-
+    public void applyDiscount(double discount) {
+        this.discountPrice -= discount;
+    }
 
 }
