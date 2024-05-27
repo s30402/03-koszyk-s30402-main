@@ -26,13 +26,13 @@ public class Warehouse {
 
     public void removeProduct(Product product) {
         try {
-            if (this.getProduct(product.getCode()) == null) {
-                throw new IllegalStateException("product is not in the warehouse");
+            if (this.products.contains(product)) {
+                throw new IllegalStateException("Product is not in the warehouse");
             } else {
                 this.products.remove(product);
             }
         } catch (Exception e) {
-            System.out.println("Product is not in the warehouse");
+            System.out.println(e.getMessage());
         }
     }
 

@@ -9,6 +9,7 @@ import java.util.List;
 public class Cart {
 
     private List<Product> products;
+    private double totalPrice;
 
     public Cart() {
         this.products = new ArrayList<Product>();
@@ -18,13 +19,13 @@ public class Cart {
 
         try {
             if (warehouse.getProduct(product.getCode()) == null) {
-                throw new IllegalStateException("product is not in warehouse");
+                throw new IllegalStateException("Product is not in warehouse");
             } else {
                 this.products.add(product);
                 warehouse.removeProduct(product);
             }
         } catch (Exception e) {
-            System.out.println("Product is not in warehouse");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -32,27 +33,27 @@ public class Cart {
         for (int i = 0; i < quantity; i++) {
             try {
                 if (warehouse.getProduct(product.getCode()) == null) {
-                    throw new IllegalStateException("product is not in warehouse");
+                    throw new IllegalStateException("Product is not in warehouse");
                 } else {
                     this.products.add(product);
                     warehouse.removeProduct(product);
                 }
             } catch (Exception e) {
-                System.out.println("Product is not in warehouse");
+                System.out.println(e.getMessage());
             }
         }
     }
 
     public void removeProduct(Warehouse warehouse, Product product) {
         try {
-            if (this.getProduct(product.getCode()) == null) {
-                throw new IllegalStateException("product is not in cart");
+            if (this.products.contains(product)) {
+                throw new IllegalStateException("Product is not in cart");
             } else {
                 this.products.remove(product);
                 warehouse.addProduct(product);
             }
         } catch (Exception e) {
-            System.out.println("Product is not in cart");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -99,5 +100,18 @@ public class Cart {
         list.append("]");
 
         return list.toString();
+    }
+
+    public double getTotalPrice() {
+        for (Product product : this.products) {
+
+            if (product.getDiscountPrice() != 0) {
+                totalPrice += product.getDiscountPrice();
+            } else {
+                totalPrice += product.getPrice();
+            }
+        }
+
+        return totalPrice;
     }
 }
